@@ -13,10 +13,11 @@ Softwares and Tools Used: Excel, MySQL
 ## Project Overview
 In this project, we explore a dataset of pizza orders to derive meaningful insights. The analysis ranges from basic data exploration to advanced performance metrics, allowing us to understand sales trends, customer preferences, and more.
 
-* **How I Create Problems For Myself:**
+* **How I Create Problems For Myself...:**
 I analyzed these datasets as if I were the owner of a bustling pizza outlet. As an owner, I wanted to gather useful insights into pizza orders and customer preferences through datasets. 
 So I began asking questions to get to know my pizza outlet.
-* **...How I Plan On Solving those Problems:**
+
+* **... And How I Plan On Solving those Problems:**
 To help extract meaningful insights from their extensive pizza orders dataset, I will utilize SQL for data extraction and analysis. By performing a series of SQL queries, I will uncover key metrics and trends. This structured analysis will provide actionable insights to refine their menu, optimize inventory, and enhance overall customer satisfaction.
 By leveraging these data-driven insights, not only do I become the owner of the best pizza outlet in town but I can make informed decisions to drive business growth and improve the customer experience.
 
