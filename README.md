@@ -55,36 +55,15 @@ The database consists of the following tables:
 
 ## Questions I Wanted To Answer From the Dataset:
 
-### General Insights
+### Order Trends
 
-1. **How many pizza types are there in total?**
-   ```sql
-   SELECT COUNT(pizza_type_id) AS total_pizza_types FROM pizza_types;
-![image](https://github.com/deeksha-dhawan/Pizza-Outlet-Analysis-using-SQL/assets/174144967/bbda71e7-8760-4505-b398-936f0b9399b1)
-
-Knowing the total number of pizza types available helps in understanding the variety offered to customers. We have 32 different pizza types, which indicates a diverse menu catering to various tastes and preferences. This variety can attract a wider customer base and meet different customer needs, enhancing overall customer satisfaction.
-
-2. **Retrieve the total number of orders placed.**
+1. **Retrieve the total number of orders placed.**
    ```sql
    SELECT COUNT(order_id) AS total_orders
    FROM orders;
 ![image](https://github.com/deeksha-dhawan/Pizza-Outlet-Analysis-using-SQL/assets/174144967/03bae979-121a-4e08-bbdd-f6106fb1b34f)
    
 The total number of orders placed provides an overview of customer activity and business performance. Here the total orders are 21,350, which indicates steady demand and customer engagement.
-
-3. **Identify the most common pizza size ordered.**
-   ```sql
-   SELECT pizzas.size, COUNT(order_details.order_details_id) AS order_count
-   FROM pizzas
-   INNER JOIN order_details ON pizzas.pizza_id = order_details.pizza_id
-   GROUP BY pizzas.size
-   ORDER BY order_count DESC
-   LIMIT 1;
-![image](https://github.com/deeksha-dhawan/Pizza-Outlet-Analysis-using-SQL/assets/174144967/25c1d33c-fdb5-4305-8963-3432bccbb631)
-   
-Knowing the most popular pizza size helps in managing inventory and pricing strategies. The L i.e. LARGE size is the most popular, therefore ensuring a sufficient supply of its pizza ingredients is crucial.
-
-### Order Analysis
 
 2. **Determine the distribution of orders by hour of the day.**
    ```sql
@@ -96,14 +75,28 @@ Knowing the most popular pizza size helps in managing inventory and pricing stra
 
 Analyzing the frequency of orders by hour reveals peak business hours. This can help optimize staffing and operational efficiency. Most orders are placed between 12 PM and 1 PM and then 4 PM to 6 PM, this time period is critical for maximizing service speed and customer satisfaction.
 
-3. **Group the orders by date and calculate the average number of pizzas ordered per day.**
+3. **Analyze seasonal variations in pizza orders.**
    ```sql
-   SELECT AVG(quantity)
-   FROM (SELECT orders.order_date AS date, SUM(order_details.quantity) AS quantity
+   SELECT MONTH(order_date) AS month, COUNT(order_id) AS order_count
+   FROM orders
+   GROUP BY month
+   ORDER BY order_count DESC;
+
+![image](https://github.com/deeksha-dhawan/Pizza-Outlet-Analysis-using-SQL/assets/174144967/efdb733a-2121-49ef-be10-df0442dede7f)
+
+
+Understanding seasonal trends in orders can guide promotional strategies and menu adjustments. Here we see there is a spike in orders during July, therefore, launching seasonal specials during this period could boost sales further.
+
+4. **Identify the busiest day for orders.**
+   ```sql
+   SELECT orders.order_date, SUM(order_details.quantity) AS total_quantity
    FROM orders
    JOIN order_details ON orders.order_id = order_details.order_id
-   GROUP BY date) AS daily_quantities;
-![image](https://github.com/deeksha-dhawan/Pizza-Outlet-Analysis-using-SQL/assets/174144967/0996424d-585c-449e-ab82-495de7ae5cdd)
+   GROUP BY orders.order_date
+   ORDER BY total_quantity DESC
+   LIMIT 1;
+   
+![image](https://github.com/deeksha-dhawan/Pizza-Outlet-Analysis-using-SQL/assets/174144967/745c4cc1-f967-4608-95b2-d08b3ec83dc3)
 
 ### Revenue Analysis
 1. **Calculate the total revenue generated from pizza sales.**
@@ -135,7 +128,7 @@ Calculating total revenue provides a measure of the business's financial perform
 
 Identifying the top 3 pizza types by revenue highlights the most profitable items. Focusing on these pizzas in marketing campaigns can maximize profitability.
 
-4. **Calculate the percentage contribution of each pizza category to total revenue.**
+3. **Calculate the percentage contribution of each pizza category to total revenue.**
    ```sql
    SELECT pizza_types.category, 
        SUM(order_details.quantity * pizzas.price) / (
@@ -153,8 +146,7 @@ Identifying the top 3 pizza types by revenue highlights the most profitable item
 
 Analyzing the revenue contribution by category helps understand which categories drive the most sales. Classic pizzas contribute 26.91% of total revenue.
 
-### Customer Preferences
-1. **Identify the highest-priced pizza.**
+4. **Identify the highest-priced pizza.**
    ```sql
    SELECT pizza_types.name, pizzas.price, pizza_types.ingredients
    FROM pizza_types
@@ -166,6 +158,20 @@ Analyzing the revenue contribution by category helps understand which categories
 
 Knowing the highest-priced pizza helps in pricing strategy and understanding customer spending behaviour. If the most expensive pizza is a speciality pizza with premium ingredients, highlighting its unique features can justify its price.
 At this pizza outlet, we have the highest-priced pizza as The Greek Pizza which has Kalamata Olives, Feta Cheese, Tomatoes, Garlic, Beef Chuck Roast, and Red Onions as its ingredients making it pricey. 
+
+### Pizza Preferences
+
+1. **Identify the most common pizza size ordered.**
+   ```sql
+   SELECT pizzas.size, COUNT(order_details.order_details_id) AS order_count
+   FROM pizzas
+   INNER JOIN order_details ON pizzas.pizza_id = order_details.pizza_id
+   GROUP BY pizzas.size
+   ORDER BY order_count DESC
+   LIMIT 1;
+![image](https://github.com/deeksha-dhawan/Pizza-Outlet-Analysis-using-SQL/assets/174144967/25c1d33c-fdb5-4305-8963-3432bccbb631)
+   
+Knowing the most popular pizza size helps in managing inventory and pricing strategies. The L i.e. LARGE size is the most popular, therefore ensuring a sufficient supply of its pizza ingredients is crucial.
 
 2. **List the top 5 most ordered pizza types along with their quantities.**
    ```sql
@@ -205,7 +211,25 @@ Analyzing the total quantity ordered by pizza category helps understand customer
 
 Identifying the least and most popular pizza categories provides insights into customer preferences and areas for menu improvement. Veggie pizzas are the least popular, SO WWE MIGHT HAVE TO reconsider their recipes or pricing might be necessary.
 
-5. **Identify repeat customers based on order frequency.**
+5. **How many pizza types are there in total?**
+   ```sql
+   SELECT COUNT(pizza_type_id) AS total_pizza_types FROM pizza_types;
+![image](https://github.com/deeksha-dhawan/Pizza-Outlet-Analysis-using-SQL/assets/174144967/bbda71e7-8760-4505-b398-936f0b9399b1)
+
+Knowing the total number of pizza types available helps in understanding the variety offered to customers. We have 32 different pizza types, which indicates a diverse menu catering to various tastes and preferences. This variety can attract a wider customer base and meet different customer needs, enhancing overall customer satisfaction.
+
+### Customer Insights
+
+1. **Calculate the average number of pizzas ordered per day.**
+   ```sql
+   SELECT AVG(quantity)
+   FROM (SELECT orders.order_date AS date, SUM(order_details.quantity) AS quantity
+   FROM orders
+   JOIN order_details ON orders.order_id = order_details.order_id
+   GROUP BY date) AS daily_quantities;
+![image](https://github.com/deeksha-dhawan/Pizza-Outlet-Analysis-using-SQL/assets/174144967/0996424d-585c-449e-ab82-495de7ae5cdd)
+
+2. **Identify repeat customers based on order frequency.**
    ```sql
    SELECT order_id, COUNT(order_id)
    FROM order_details
@@ -221,29 +245,6 @@ Identifying the least and most popular pizza categories provides insights into c
 
 Identifying repeat customers helps in understanding customer loyalty and designing loyalty programs.
 
-### Seasonal Analysis
-1. **Analyze seasonal variations in pizza orders.**
-   ```sql
-   SELECT MONTH(order_date) AS month, COUNT(order_id) AS order_count
-   FROM orders
-   GROUP BY month
-   ORDER BY order_count DESC;
-
-![image](https://github.com/deeksha-dhawan/Pizza-Outlet-Analysis-using-SQL/assets/174144967/efdb733a-2121-49ef-be10-df0442dede7f)
-
-
-Understanding seasonal trends in orders can guide promotional strategies and menu adjustments. Here we see there is a spike in orders during July, therefore, launching seasonal specials during this period could boost sales further.
-
-2. **Identify the busiest day for orders.**
-   ```sql
-   SELECT orders.order_date, SUM(order_details.quantity) AS total_quantity
-   FROM orders
-   JOIN order_details ON orders.order_id = order_details.order_id
-   GROUP BY orders.order_date
-   ORDER BY total_quantity DESC
-   LIMIT 1;
-   
-![image](https://github.com/deeksha-dhawan/Pizza-Outlet-Analysis-using-SQL/assets/174144967/745c4cc1-f967-4608-95b2-d08b3ec83dc3)
 
 3. **Analyze the cumulative revenue generated over time.**
 
