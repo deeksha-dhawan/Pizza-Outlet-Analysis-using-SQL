@@ -3,8 +3,8 @@ Softwares and Tools Used: Excel, MySQL
 
 ## Table of Contents
 - [Project Overview](#project-overview)
-- [Database Schema](#database-schema)
 - [CSV Files](#csv-files)
+- [Database Schema](#database-schema)
 - [Questions I Wanted To Answer From the Dataset](#questions-i-wanted-to-answer-from-the-dataset)
 
 ## Project Overview
@@ -18,6 +18,14 @@ So I began asking questions to get to know my pizza outlet.
 To help extract meaningful insights from their extensive pizza orders dataset, I will utilize SQL for data extraction and analysis. By performing a series of SQL queries, I will uncover key metrics and trends. This structured analysis will provide actionable insights to refine their menu, optimize inventory, and enhance overall customer satisfaction.
 By leveraging these data-driven insights, not only do I become the owner of the best pizza outlet in town but I can make informed decisions to drive business growth and improve the customer experience.
 
+## CSV Files
+The dataset used in this project is available in the following CSV files located in the `data` folder:
+
+- [pizzas.csv](https://github.com/user-attachments/files/16040831/pizzas.csv): Contains information about the pizzas.
+- [pizza_types.csv](https://github.com/user-attachments/files/16040832/pizza_types.csv): Contains information about the different pizza types.
+- [orders.csv](https://github.com/user-attachments/files/16040833/orders.csv): Contains information about the orders.
+- [order_details.csv](https://github.com/user-attachments/files/16040837/order_details.csv): Contains details about the orders.
+- 
 ## Database Schema
 The database consists of the following tables:
 
@@ -44,13 +52,6 @@ The database consists of the following tables:
    - `pizza_id`: Unique identifier for each pizza (foreign key)
    - `quantity`: Quantity of the pizza ordered
      
-## CSV Files
-The dataset used in this project is available in the following CSV files located in the `data` folder:
-
-- [pizzas.csv](https://github.com/user-attachments/files/16040831/pizzas.csv): Contains information about the pizzas.
-- [pizza_types.csv](https://github.com/user-attachments/files/16040832/pizza_types.csv): Contains information about the different pizza types.
-- [orders.csv](https://github.com/user-attachments/files/16040833/orders.csv): Contains information about the orders.
-- [order_details.csv](https://github.com/user-attachments/files/16040837/order_details.csv): Contains details about the orders.
 
 ## Questions I Wanted To Answer From the Dataset:
 
