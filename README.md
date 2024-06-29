@@ -25,7 +25,7 @@ The dataset used in this project is available in the following CSV files located
 - [pizza_types.csv](https://github.com/user-attachments/files/16040832/pizza_types.csv): Contains information about the different pizza types.
 - [orders.csv](https://github.com/user-attachments/files/16040833/orders.csv): Contains information about the orders.
 - [order_details.csv](https://github.com/user-attachments/files/16040837/order_details.csv): Contains details about the orders.
-- 
+
 ## Database Schema
 The database consists of the following tables:
 
